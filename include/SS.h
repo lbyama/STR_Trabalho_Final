@@ -4,11 +4,8 @@
 #include <Arduino_FreeRTOS.h>
 #include <task.h>
 #include <semphr.h>
+#include <timers.h>
 
-class SporadicServer{
-    private:
-        SporadicServer();
-    public:
-};
+void StartServer();
 
 #endif
