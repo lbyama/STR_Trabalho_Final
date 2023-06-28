@@ -1,18 +1,21 @@
+#include <Arduino_FreeRTOS.h>
 #include <Arduino.h>
+#include <task.h>
+#include <semphr.h>
+#include <SS.h>
 
-// put function declarations here:
-int myFunction(int, int);
+//Tasks
+TaskHandle_t        ledTaskH;
+ 
+//Mutex
+SemaphoreHandle_t   SerialMutex;
+
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
-}
+void loop(){
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+    
 }
