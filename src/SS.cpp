@@ -3,5 +3,5 @@
 QueueHandle_t AperiodicQueue;
 
 SporadicServer::SporadicServer(){
-    AperiodicQueue = xQueueCreate( 10, sizeof( unsigned long ) );
+    AperiodicQueue = xQueueCreate( 10, sizeof( unsigned long ));
 };
