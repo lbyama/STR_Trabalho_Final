@@ -1,29 +1,24 @@
 #include <SS.h>
 
-QueueHandle_t AperiodicQueue;
-int StartServerCapacity;
-int ServerCapacity;
-int ServerPeriod;
-int ReplenishmentAmount;
-TimerHandle_t ReplenishmentTimer;
+SporadicServer SS;
 
 void Replenishment(TimerHandle_t rTimer){
-    ServerCapacity += ReplenishmentAmount;
+    SS.capacity += SS.replenishmentAmount;
 }
 
 void TaskActivated(){
-    xTimerStart(ReplenishmentTimer,0);
-    StartServerCapacity = ServerCapacity;
+    xTimerStart(SS.replenishmentTimer,0);
+    SS.startCapacity = SS.capacity;
 }
 
 void TaskIdle(){
-    ReplenishmentAmount = ServerCapacity - StartServerCapacity;
+    SS.replenishmentAmount = SS.capacity - SS.startCapacity;
 }
 
 void StartServer(){
-    ReplenishmentTimer = xTimerCreate
+    SS.replenishmentTimer = xTimerCreate
                     ("Replenishment Timer",
-                        ServerPeriod,
+                        SS.period,
                         pdFALSE,
                         ( void * ) 0,
                         Replenishment
