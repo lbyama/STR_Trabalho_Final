@@ -1,12 +1,17 @@
 #ifndef SS_H_
 #define SS_H_
 
+#include <Arduino.h>
 #include <Arduino_FreeRTOS.h>
 #include <task.h>
 #include <semphr.h>
 #include <timers.h>
+#include <queue.h>
+#include <taskset.h>
 
-typedef struct SporadicServer
+#define PIN_BUTTON 16
+
+typedef struct sporadic_server
 {
     QueueHandle_t aperiodicQueue;
     int startCapacity;
@@ -14,7 +19,7 @@ typedef struct SporadicServer
     int period;
     int replenishmentAmount;
     TimerHandle_t replenishmentTimer;
-};
+} SporadicServer;
 
 void Replenishment(TimerHandle_t rTimer);
 void TaskActivated();
