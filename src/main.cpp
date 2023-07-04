@@ -8,12 +8,12 @@
 #include <taskset.h>
 
 void setup() {
-
-
+    Serial.begin(115200);
     setupTasks();
-    RM_sort(periodicTasks,3);
-    RM_schedule(periodicTasks,3);
-    createTasks();
+    setupServer();
+    RM_sort(TaskList,4);
+    RM_schedule(TaskList,4);
+    createTasks(4);
     vTaskStartScheduler();
 }
 

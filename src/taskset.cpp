@@ -3,6 +3,7 @@
 TaskHandle_t redTask;
 TaskHandle_t greenTask;
 TaskHandle_t blueTask;
+TaskHandle_t aperiodicTask;
  
 //Mutex
 SemaphoreHandle_t  SemaphoreRGB;
@@ -10,55 +11,77 @@ SemaphoreHandle_t  SemaphoreRed;
 SemaphoreHandle_t  SemaphoreGreen;
 SemaphoreHandle_t  SemaphoreBlue;
 
-TaskStruct periodicTasks[3];
+TaskStruct TaskList[4];
 
 void redFunction(void *arg){
+    TickType_t period = (TickType_t)arg;
+    TickType_t xLastWakeTime;
     while(1){
+        xLastWakeTime = xTaskGetTickCount();
+        Serial.println("Tarefa Red ativada");
         xSemaphoreTake(SemaphoreRed, pdMS_TO_TICKS(10));
         digitalWrite(RED_PIN,HIGH);
         delay(1);
         xSemaphoreTake(SemaphoreRGB, pdMS_TO_TICKS(10));
-        digitalWrite(R_PIN,HIGH);
-        delay(1);
         digitalWrite(R_PIN,LOW);
+        digitalWrite(G_PIN,HIGH);
+        digitalWrite(B_PIN,LOW);
+        delay(1);
         xSemaphoreGive(SemaphoreRGB);
         delay(1);
         digitalWrite(RED_PIN,LOW);
         delay(1);
+        xTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(period));
         xSemaphoreGive(SemaphoreRed);
     }
+    
 }
 
 void greenFunction(void *arg){
+    TickType_t period = (TickType_t)arg;
+    TickType_t xLastWakeTime;
     while(1){
+        xLastWakeTime = xTaskGetTickCount();
+        Serial.println("Tarefa Green ativada");
         xSemaphoreTake(SemaphoreGreen, pdMS_TO_TICKS(10));
         digitalWrite(GREEN_PIN,HIGH);
         delay(1);
+
         xSemaphoreTake(SemaphoreRGB, pdMS_TO_TICKS(10));
+        digitalWrite(R_PIN,LOW);
         digitalWrite(G_PIN,HIGH);
+        digitalWrite(B_PIN,LOW);
         delay(1);
-        digitalWrite(G_PIN,LOW);
         xSemaphoreGive(SemaphoreRGB);
         delay(1);
+
         digitalWrite(GREEN_PIN,LOW);
         delay(1);
+        xTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(period));
+
         xSemaphoreGive(SemaphoreGreen);
     }
 }
 
 void blueFunction(void *arg){
+    TickType_t period = (TickType_t)arg;
+    TickType_t xLastWakeTime;
     while(1){
+        xLastWakeTime = xTaskGetTickCount();
+        Serial.println("Tarefa blue ativada");
         xSemaphoreTake(SemaphoreBlue, pdMS_TO_TICKS(10));
         digitalWrite(BLUE_PIN,HIGH);
         delay(1);
         xSemaphoreTake(SemaphoreRGB, pdMS_TO_TICKS(10));
-        digitalWrite(B_PIN,HIGH);
-        delay(1);
+        digitalWrite(R_PIN,LOW);
+        digitalWrite(G_PIN,HIGH);
         digitalWrite(B_PIN,LOW);
+        delay(1);
         xSemaphoreGive(SemaphoreRGB);
         delay(1);
         digitalWrite(BLUE_PIN,LOW);
         delay(1);
+        xTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(period));
         xSemaphoreGive(SemaphoreBlue);
     }
 }
@@ -77,31 +100,34 @@ void setupTasks(){
     SemaphoreBlue = xSemaphoreCreateMutex();
     SemaphoreRGB = xSemaphoreCreateMutex();
 
-    periodicTasks[0].period = 10;
-    strcpy(periodicTasks[0].ID, "Red");
-    periodicTasks[0].function = redFunction;
-    periodicTasks[0].handle = redTask;
+    TaskList[0].period = 10;
+    strcpy(TaskList[0].ID, "Red");
+    TaskList[0].function = redFunction;
+    TaskList[0].handle = redTask;
 
-    periodicTasks[2].period = 20;
-    strcpy(periodicTasks[2].ID, "Green");
-    periodicTasks[2].function = greenFunction;
-    periodicTasks[2].handle = greenTask;
+    TaskList[1].period = 20;
+    strcpy(TaskList[1].ID, "Green");
+    TaskList[1].function = greenFunction;
+    TaskList[1].handle = greenTask;
 
-    periodicTasks[1].period = 40;
-    strcpy(periodicTasks[1].ID, "Blue");
-    periodicTasks[1].function = blueFunction;
-    periodicTasks[1].handle = blueTask;
+    TaskList[2].period = 40;
+    strcpy(TaskList[2].ID, "Blue");
+    TaskList[2].function = blueFunction;
+    TaskList[2].handle = blueTask;
+
+    TaskList[3].period = 60;
+    strcpy(TaskList[3].ID, "Server");
+    TaskList[3].function = NULL;
+    TaskList[3].handle = aperiodicTask;
 }
 
-void createTasks(){
-    
-    for (int i = 0; i < N_TASKS; i++){
-        xTaskCreate(periodicTasks[i].function,
-                    periodicTasks[i].ID,
+void createTasks(int size){
+    for (int i = 0; i < size; i++){
+        xTaskCreate(TaskList[i].function,
+                    TaskList[i].ID,
                     configMINIMAL_STACK_SIZE,
-                    (TickType_t *)periodicTasks[i].period,
-                    periodicTasks[i].priority,
-                    &periodicTasks[i].handle);
+                    (TickType_t *)TaskList[i].period,
+                    TaskList[i].priority,
+                    &TaskList[i].handle);
     }
-    
 }

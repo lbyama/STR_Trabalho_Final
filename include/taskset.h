@@ -22,19 +22,20 @@
 typedef struct task_struct
 {
     int period;
-    char ID[5];
+    char ID[10];
     uint8_t priority;
     TaskHandle_t handle;
     TaskFunction_t function;
 } TaskStruct;
 
-extern TaskStruct periodicTasks[3];
+extern TaskHandle_t aperiodicTask;
+extern TaskStruct TaskList[4];
 extern SemaphoreHandle_t  SemaphoreRGB;
 
 void redFunction(void *arg);
 void blueFunction(void *arg);
 void greenFunction(void *arg);
 void setupTasks();
-void createTasks();
+void createTasks(int size);
 
 #endif
