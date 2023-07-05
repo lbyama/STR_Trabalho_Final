@@ -2,21 +2,29 @@
 #include <Arduino.h>
 #include <task.h>
 #include <semphr.h>
-#include <SS.h>
+//#include <SS.h>
 #include <RM.h>
-#include <PCP.h>
+//#include <PCP.h>
 #include <taskset.h>
 
 void setup() {
-    Serial.begin(115200);
+    Serial.begin(9600);
+    Serial.println("setupTasks");
     setupTasks();
-    setupServer();
+    Serial.println("setupServer");
+    //setupServer();
+    Serial.println("RM_Sort");
     RM_sort(TaskList,4);
+    Serial.println("RM_Schedule");
     RM_schedule(TaskList,4);
+    Serial.println("createTasks");
     createTasks(4);
-    vTaskStartScheduler();
+    Serial.println("vTaskStartScheduler");
+    
 }
 
 void loop(){
+    while(1){
 
+    }
 }

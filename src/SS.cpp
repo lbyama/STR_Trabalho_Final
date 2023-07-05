@@ -14,7 +14,7 @@ void aperiodicFunction(){
   digitalWrite(R_PIN, HIGH);
   digitalWrite(G_PIN, HIGH);
   digitalWrite(B_PIN, HIGH);
-  delay(1);
+  delay(10);
   xSemaphoreGive(SemaphoreRGB);
 }
 
@@ -40,7 +40,7 @@ void taskIdle(void* arg){
     xTimerStop(SS_server.capacityTimer,0);
 
     SS_server.replenishmentAmount = SS_server.capacity - remainingTime*portTICK_PERIOD_MS; //Calcula o RTA
-    SS_server.capacity = remainingTime*portTICK_PERIOD_MS;   //Converte de ticks para ms e capacidade recebe o que sobrou de tempo
+    SS_server.capacity = remainingTime;   //Converte de ticks para ms e capacidade recebe o que sobrou de tempo
   }
 }
 
@@ -85,7 +85,6 @@ void serverScheduler(void *args){
   TickType_t periodo = (TickType_t)args;
   TickType_t xLastWakeTime;
   {
-    BaseType_t aTask;
     while (1)
     {
       xLastWakeTime = xTaskGetTickCount();

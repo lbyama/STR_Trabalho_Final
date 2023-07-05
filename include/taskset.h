@@ -10,12 +10,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define RED_PIN 10
-#define GREEN_PIN 11
-#define BLUE_PIN 12
-#define R_PIN 13
-#define G_PIN 14
-#define B_PIN 15
+#define RED_PIN 8
+#define GREEN_PIN 9
+#define BLUE_PIN 10
+#define R_PIN 2
+#define G_PIN 3
+#define B_PIN 4
 
 #define N_TASKS 3
 

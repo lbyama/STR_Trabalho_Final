@@ -9,7 +9,7 @@
 #include <queue.h>
 #include <taskset.h>
 
-#define PIN_BUTTON 16
+#define PIN_BUTTON 13
 
 #define configUSE_APPLICATION_TASK_TAG 1
 
