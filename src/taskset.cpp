@@ -18,7 +18,6 @@ void redFunction(void *arg){
     TickType_t xLastWakeTime;
     while(1){
         xLastWakeTime = xTaskGetTickCount();
-        Serial.println("Tarefa Red ativada");
         xSemaphoreTake(SemaphoreRed, pdMS_TO_TICKS(10));
         digitalWrite(RED_PIN,HIGH);
         delay(10);
@@ -41,7 +40,6 @@ void greenFunction(void *arg){
     TickType_t xLastWakeTime;
     while(1){
         xLastWakeTime = xTaskGetTickCount();
-        Serial.println("Tarefa Green ativada");
         xSemaphoreTake(SemaphoreGreen, pdMS_TO_TICKS(10));
         digitalWrite(GREEN_PIN,HIGH);
         delay(10);
@@ -66,7 +64,6 @@ void blueFunction(void *arg){
     TickType_t xLastWakeTime;
     while(1){
         xLastWakeTime = xTaskGetTickCount();
-        Serial.println("Tarefa blue ativada");
         xSemaphoreTake(SemaphoreBlue, pdMS_TO_TICKS(10));
         digitalWrite(BLUE_PIN,HIGH);
         delay(10);
@@ -107,12 +104,12 @@ void setupTasks(){
     TaskList[1].function = greenFunction;
     TaskList[1].handle = greenTask;
 
-    TaskList[2].period = 400;
+    TaskList[2].period = 300;
     strcpy(TaskList[2].ID, "Blue");
     TaskList[2].function = blueFunction;
     TaskList[2].handle = blueTask;
 
-    TaskList[3].period = 600;
+    TaskList[3].period = 400;
     strcpy(TaskList[3].ID, "Server");
     TaskList[3].function = NULL;
     TaskList[3].handle = aperiodicTask;

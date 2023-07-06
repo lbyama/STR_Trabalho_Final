@@ -14,7 +14,6 @@ void aperiodicFunction(){
   xSemaphoreGive(SemaphoreRGB);
 }
 
-/*
 void buttonHandler(){
   xQueueSend(SS_server.aperiodicQueue, &ct, 5); //quando o botão é apertado, coloca uma tarefa na fila
 }
@@ -46,21 +45,21 @@ void taskIdle(void* arg){
 }
 
 void yield(TimerHandle_t rTimer){
-  //Chamado quando o timer da capacidade expira, ou seja,
-  quando o servidor gastou toda a sua capacidade
+  //Chamado quando o timer da capacidade expira, ou seja,  quando o servidor gastou toda a sua capacidade
+
   Serial.println("Capacidade do servidor esgotada");
   SS_server.replenishmentAmount = SS_server.capacity;
   SS_server.capacity = 0;
   taskYIELD(); //Abre mão do processador
 }
-*/
+
 void setupServer(){
   int capacity = 50;
   Serial.println("Setup1");
-  //attachInterrupt(digitalPinToInterrupt(PIN_BUTTON),buttonHandler,FALLING);
+  attachInterrupt(digitalPinToInterrupt(PIN_BUTTON),buttonHandler,FALLING);
   delay(50);
   Serial.println("Setup1");
-  /*
+  
   SS_server.replenishmentTimer = xTimerCreate
                   ("Replenishment Timer",
                       SS_server.period,
@@ -77,7 +76,7 @@ void setupServer(){
                     ( void * ) 0,
                     yield
                 );
-  */
+  
   strcpy(TaskList[3].ID, "SS Server");
   TaskList[3].function = serverScheduler;
 }

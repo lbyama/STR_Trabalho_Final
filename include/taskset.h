@@ -17,7 +17,8 @@
 #define G_PIN 4
 #define B_PIN 5
 
-#define N_TASKS 3
+#define N_TASKS 4
+#define MAX_TASKS 4
 
 typedef struct task_struct
 {

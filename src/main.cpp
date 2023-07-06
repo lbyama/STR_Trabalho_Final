@@ -2,9 +2,10 @@
 #include <Arduino.h>
 #include <task.h>
 #include <semphr.h>
-#include <SS.h>
+
 #include <RM.h>
-//#include <PCP.h>
+#include <PCP.h>
+#include <SS.h>
 #include <taskset.h>
 
 void setup() {
@@ -12,12 +13,12 @@ void setup() {
     Serial.println("setupTasks");
     setupTasks();
     Serial.println("setupServer");
-    //setupServer();
+    setupServer();
     Serial.println("RM_Sort");
-    RM_sort(TaskList,3);
+    RM_sort(TaskList,4);
     Serial.println("RM_Schedule");
     Serial.println("createTasks");
-    createTasks(3);
+    createTasks(4);
     Serial.println("vTaskStartScheduler");
     vTaskStartScheduler();
 }

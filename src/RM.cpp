@@ -12,10 +12,3 @@ void RM_sort(TaskStruct* tasks, int numTasks) {
     }
   }
 }
-
-void RM_schedule(TaskStruct* tasks, int numTasks) {
-  // Ajusta as prioridades das tarefas de acordo com o algoritmo RM
-  for (int i = 0; i < numTasks; i++) {
-    vTaskPrioritySet(tasks[i].handle, i + 1);
-  }
-}

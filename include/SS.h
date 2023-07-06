@@ -11,8 +11,9 @@
 
 #define PIN_BUTTON 2
 
-//#define traceTASK_SWITCHED_IN() taskActivated(pxCurrentTCB)    //Chama essa função toda vez que uma tarefa é colocada no processador
-//#define traceTASK_SWITCHED_OUT() taskIdle(pxCurrentTCB)        //Chama essa função toda vez que uma tarefa é tirada do processador
+#define traceTASK_SWITCHED_IN() taskActivated(pxCurrentTCB)    //Chama essa função toda vez que uma tarefa é colocada no processador
+#define traceTASK_SWITCHED_OUT() taskIdle(pxCurrentTCB)        //Chama essa função toda vez que uma tarefa é tirada do processador
+
 
 typedef struct sporadic_server
 {
@@ -23,6 +24,7 @@ typedef struct sporadic_server
     TimerHandle_t replenishmentTimer;   //timer para o RT = momento para aumentar a capacidade
     TimerHandle_t capacityTimer;        //timer para acabar a capacidade
 } SporadicServer;
+
 
 void buttonHandler();
 void aperiodicFunction();
