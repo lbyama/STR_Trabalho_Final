@@ -9,12 +9,10 @@
 #include <queue.h>
 #include <taskset.h>
 
-#define PIN_BUTTON 13
+#define PIN_BUTTON 2
 
-#define configUSE_APPLICATION_TASK_TAG 1
-
-#define traceTASK_SWITCHED_IN() taskActivated(pxCurrentTCB)    //Chama essa função toda vez que uma tarefa é colocada no processador
-#define traceTASK_SWITCHED_OUT() taskIdle(pxCurrentTCB)        //Chama essa função toda vez que uma tarefa é tirada do processador
+//#define traceTASK_SWITCHED_IN() taskActivated(pxCurrentTCB)    //Chama essa função toda vez que uma tarefa é colocada no processador
+//#define traceTASK_SWITCHED_OUT() taskIdle(pxCurrentTCB)        //Chama essa função toda vez que uma tarefa é tirada do processador
 
 typedef struct sporadic_server
 {

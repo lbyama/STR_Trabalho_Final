@@ -2,7 +2,7 @@
 #include <Arduino.h>
 #include <task.h>
 #include <semphr.h>
-//#include <SS.h>
+#include <SS.h>
 #include <RM.h>
 //#include <PCP.h>
 #include <taskset.h>
@@ -14,13 +14,12 @@ void setup() {
     Serial.println("setupServer");
     //setupServer();
     Serial.println("RM_Sort");
-    RM_sort(TaskList,4);
+    RM_sort(TaskList,3);
     Serial.println("RM_Schedule");
-    RM_schedule(TaskList,4);
     Serial.println("createTasks");
-    createTasks(4);
+    createTasks(3);
     Serial.println("vTaskStartScheduler");
-    
+    vTaskStartScheduler();
 }
 
 void loop(){

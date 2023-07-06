@@ -13,9 +13,9 @@
 #define RED_PIN 8
 #define GREEN_PIN 9
 #define BLUE_PIN 10
-#define R_PIN 2
-#define G_PIN 3
-#define B_PIN 4
+#define R_PIN 3
+#define G_PIN 4
+#define B_PIN 5
 
 #define N_TASKS 3
 
